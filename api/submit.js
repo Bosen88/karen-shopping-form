@@ -172,9 +172,9 @@ function buildFlexOrTextMessages(formData, SHEET_VIEW_URL, SHOP_URL) {
       footer: {
         type: "box", layout: "vertical", spacing: "sm",
         contents: [
-          { type: "button", style: "link", height: "sm", action: { type: "uri", label: "查看完整回覆（表單）", uri: (SHEET_VIEW_URL && SHEET_VIEW_URL.length) ? SHEET_VIEW_URL : "https://docs.google.com/spreadsheets/d/1E6C9Wdc7Ij22m44k-AoRdkSwnH2auXIQ_KQ_lMwS98A/edit?usp=sharing" } },
+          { type: "button", style: "link", height: "sm", action: { type: "uri", label: "查看完整回覆（表單）", uri: (SHEET_VIEW_URL && SHEET_VIEW_URL.length) ? SHEET_VIEW_URL : "https://docs.google.com" } },
           { type: "button", style: "link", height: "sm", action: { type: "postback", label: "貼上私訊範本", data: "action=copy_template&email=" + encodeURIComponent(email) + "&name=" + encodeURIComponent(name), displayText: displayText("私訊範本：您好，感謝您填問卷！關於您優先的「" + safeTrunc(top3,40) + "」，我這邊有優惠，是否要我協助下單或寄試用？", 150) } },
-          { type: "button", style: "primary", color: "#0d6efd", height: "sm", action: { type: "uri", label: "開啟 SHOP.COM", uri: (SHOP_URL && SHOP_URL.length) ? SHOP_URL : "https://tw.shop.com/AUREVOIR2047" } }
+          { type: "button", style: "primary", color: "#0d6efd", height: "sm", action: { type: "uri", label: "開啟 SHOP.COM", uri: (SHOP_URL && SHOP_URL.length) ? SHOP_URL : "https://www.shop.com" } }
         ],
         flex: 0
       }
@@ -196,6 +196,17 @@ function buildFlexOrTextMessages(formData, SHEET_VIEW_URL, SHOP_URL) {
 // 4. Vercel 主要執行區域
 // =========================================
 export default async function handler(req, res) {
+  // 🛡️ 加上 CORS 標頭，允許跨域請求與預檢 (Preflight) 增加安全性與相容性
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', '*'); 
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // 處理瀏覽器的 OPTIONS 預檢請求
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   if (req.method !== 'POST') return res.status(405).json({ success: false, message: 'Method Not Allowed' });
 
   try {
@@ -224,7 +235,7 @@ export default async function handler(req, res) {
     const parsed = parseInterestsToStructured(allInterestsStr);
     const score = computeCustomerScore(parsed, formData);
 
-    // 寫入 Google Sheet (完整欄位，與你原本的 REQUIRED_HEADERS 對齊)
+    // 準備要寫入 Google Sheet 的資料
     const newRow = {
       'Email': formData.email || "未提供Email",
       '姓名': formData.name || "未提供姓名",
@@ -249,17 +260,22 @@ export default async function handler(req, res) {
       'CustomerScore': score,
       '最後更新時間': new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })
     };
-    await sheet.addRow(newRow);
 
     // 把資料裝回 formData 讓 LINE 通知可以使用
     formData.parsed = parsed;
     formData.score = score;
 
-    // 發送 LINE 通知 (呼叫我們剛剛移植過來的完整 Flex Message 產生器)
+    // =========================================
+    // 🚀 優化：並行處理 Google Sheets 與 LINE API (節省一半等待時間)
+    // =========================================
+    const tasks = [];
+
+    // 任務 1：寫入試算表
+    tasks.push(sheet.addRow(newRow));
+
+    // 任務 2：發送 LINE 通知
     const lineToken = (process.env.LINE_CHANNEL_ACCESS_TOKEN || '').replace(/"/g, '').trim();
     const lineIdsString = (process.env.LINE_RECIPIENT_USER_IDS || '').replace(/"/g, '').trim();
-    
-    // 取得自訂連結 (若沒設定，按鈕會導向預設值)
     const sheetViewUrl = (process.env.SHEET_VIEW_URL || '').replace(/"/g, '').trim();
     const shopUrl = (process.env.SHOP_URL || '').replace(/"/g, '').trim();
 
@@ -267,7 +283,7 @@ export default async function handler(req, res) {
       const lineIds = lineIdsString.split(',');
       const messages = buildFlexOrTextMessages(formData, sheetViewUrl, shopUrl);
 
-      await fetch('https://api.line.me/v2/bot/message/multicast', {
+      const lineTask = fetch('https://api.line.me/v2/bot/message/multicast', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -277,8 +293,13 @@ export default async function handler(req, res) {
           to: lineIds,
           messages: messages
         })
-      });
+      }).catch(err => console.error("LINE 通知發送失敗:", err)); // 避免 LINE 錯誤影響表單提交
+
+      tasks.push(lineTask);
     }
+
+    // 同時等待兩個任務完成！
+    await Promise.all(tasks);
 
     return res.status(200).json({ success: true, message: '資料提交成功' });
 
