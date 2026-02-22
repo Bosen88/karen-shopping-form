@@ -172,9 +172,9 @@ function buildFlexOrTextMessages(formData, SHEET_VIEW_URL, SHOP_URL) {
       footer: {
         type: "box", layout: "vertical", spacing: "sm",
         contents: [
-          { type: "button", style: "link", height: "sm", action: { type: "uri", label: "查看完整回覆（表單）", uri: (SHEET_VIEW_URL && SHEET_VIEW_URL.length) ? SHEET_VIEW_URL : "https://docs.google.com" } },
+          { type: "button", style: "link", height: "sm", action: { type: "uri", label: "查看完整回覆（表單）", uri: (SHEET_VIEW_URL && SHEET_VIEW_URL.length) ? SHEET_VIEW_URL : "https://docs.google.com/spreadsheets/d/1E6C9Wdc7Ij22m44k-AoRdkSwnH2auXIQ_KQ_lMwS98A/edit?usp=sharing" } },
           { type: "button", style: "link", height: "sm", action: { type: "postback", label: "貼上私訊範本", data: "action=copy_template&email=" + encodeURIComponent(email) + "&name=" + encodeURIComponent(name), displayText: displayText("私訊範本：您好，感謝您填問卷！關於您優先的「" + safeTrunc(top3,40) + "」，我這邊有優惠，是否要我協助下單或寄試用？", 150) } },
-          { type: "button", style: "primary", color: "#0d6efd", height: "sm", action: { type: "uri", label: "開啟 SHOP.COM", uri: (SHOP_URL && SHOP_URL.length) ? SHOP_URL : "https://www.shop.com" } }
+          { type: "button", style: "primary", color: "#0d6efd", height: "sm", action: { type: "uri", label: "開啟 SHOP.COM", uri: (SHOP_URL && SHOP_URL.length) ? SHOP_URL : "https://tw.shop.com/AUREVOIR2047" } }
         ],
         flex: 0
       }
