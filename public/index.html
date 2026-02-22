@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karen & Bosen您的專屬購物顧問</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+      /* ===========================
+         styles.html - A 優雅經典 (完整合併版)
+         =========================== */
+      :root{
+        --primary: #0B3B5C;       
+        --primary-600: #0A314D;   
+        --accent: #D4A76A;        
+        --accent-2: #F2B8A0;      
+        --bg: #F4F7FA;            
+        --card: #FBFAF7;          
+        --muted: #6C7A89;         
+        --text: #17202A;          
+        --success: #20A39E;
+        --danger: #D64545;
+        --shadow: 0 10px 30px rgba(11,59,92,0.06);
+        --radius-lg: 12px;
+        --radius-md: 8px;
+        --gap: 1rem;
+        --max-width: 760px;
+      }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        color: var(--text);
+        background: linear-gradient(180deg, var(--bg) 0%, #ffffff 100%);
+        line-height: 1.45;
+      }
+
+      .form-container {
+        max-width: var(--max-width);
+        margin: 1.5rem auto;
+        background: var(--card);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow);
+        padding: 1.25rem;
+        border: 1px solid rgba(11,59,92,0.04);
+      }
+
+      .form-container h2 {
+        font-size: 1.375rem;
+        margin-bottom: .125rem;
+        letter-spacing: -0.02em;
+        color: var(--primary);
+      }
+
+      .form-container p.text-muted {
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+        color: var(--muted);
+      }
+
+      .form-step {
+        display: none;
+        animation: stepFade .36s cubic-bezier(.2,.9,.2,1);
+        padding-top: .25rem;
+      }
+      .form-step.active { display: block; }
+
+      @keyframes stepFade {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .question-section {
+        background: linear-gradient(180deg, #ffffff, #fbfbfb);
+        border: 1px solid rgba(11,59,92,0.03);
+        padding: 1.25rem;
+        border-radius: var(--radius-md);
+        margin-bottom: 1rem;
+      }
+      fieldset.question-section legend {
+        font-weight: 600;
+        margin-bottom: .5rem;
+        color: var(--primary);
+      }
+
+      .sub-question-label {
+        font-weight: 600;
+        margin-top: .9rem;
+        margin-bottom: .35rem;
+        color: #333;
+        display: block;
+      }
+
+      .form-check { margin-bottom: .45rem; }
+      .form-check-label { font-size: .95rem; color: var(--text); }
+
+      .progress-bar-container {
+        width: 100%;
+        background-color: rgba(13,110,253,0.06);
+        border-radius: 999px;
+        height: 12px;
+        margin-bottom: 1rem;
+        position: relative;
+      }
+      .progress-bar-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        border-radius: 999px;
+        transition: width .45s cubic-bezier(.2,.9,.2,1);
+      }
+
+      input.form-control, select.form-select, textarea.form-control {
+        border-radius: 8px;
+        padding: .6rem .75rem;
+        border: 1px solid #e6edf8;
+        background: linear-gradient(180deg,#ffffff,#fbfdff);
+      }
+      input.form-control:focus, select.form-select:focus, textarea.form-control:focus {
+        outline: none;
+        box-shadow: 0 8px 26px rgba(11,59,92,0.08);
+        border-color: var(--primary);
+      }
+
+      .field-error {
+        border-color: var(--danger) !important;
+        box-shadow: 0 6px 18px rgba(214,167,106,0.06) !important;
+      }
+
+      .error-text {
+        color: var(--danger);
+        font-size: .9rem;
+        margin-top: .25rem;
+        display: none;
+      }
+
+      .step-navigation {
+        display: flex;
+        justify-content: space-between;
+        gap: .5rem;
+        margin-top: 1.25rem;
+        align-items: center;
+      }
+      .step-navigation .btn {
+        min-width: 120px;
+        padding: .55rem .9rem;
+        border-radius: 10px;
+        font-weight: 600;
+      }
+
+      .btn-primary {
+        background: linear-gradient(180deg, var(--primary), var(--primary-600));
+        color: #fff;
+        border: none;
+        box-shadow: 0 6px 18px rgba(11,59,92,0.12);
+        transition: transform .12s ease, box-shadow .12s ease;
+      }
+      .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(11,59,92,0.14); }
+      
+      .btn-secondary {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid rgba(212,167,106,0.18);
+      }
+
+      .btn-success {
+        background: linear-gradient(180deg, var(--success), #178f85);
+        color: #fff;
+      }
+
+      .qr-link-container { text-align: center; margin-top: .6rem; }
+      .qr-link-container img {
+        border-radius: 10px;
+        border: 1px solid rgba(11,59,92,0.04);
+        padding: 6px;
+        background: #fff;
+        box-shadow: 0 6px 14px rgba(9,30,66,0.04);
+        max-width: 150px;
+        height: auto;
+      }
+
+      @media (max-width: 576px) {
+        :root { --max-width: 100%; }
+        .form-container { padding: 1rem; margin: .6rem; border-radius: 10px; }
+        .step-navigation { flex-direction: column-reverse; align-items: stretch; }
+        .step-navigation .btn { width: 100%; min-width: 0; }
+        .progress-bar-container { height: 10px; }
+      }
+    </style>
+  </head>
+  <body>
+    
+    <div class="container my-5">
+      <div class="form-container shadow p-4 p-md-5 rounded">
+        <h2 class="mb-3 text-center">Karen🛍️BUY寶箱放心購 🛍️ - 居家購物問卷</h2>
+        <p class="text-muted text-center mb-4">您好，我是您的專屬購物顧問 Karen & Bosen。這份問卷能幫助我更了解您的需求，為您提供更精準的服務！</p>
+        
+        <div class="progress-bar-container" aria-hidden="true">
+          <div class="progress-bar-fill" id="progress-bar"></div>
+        </div>
+        
+        <form id="customer-form" novalidate>
+          
+          <div class="form-step active" id="step-1">
+            <legend class="h5 border-bottom pb-2 mb-3">步驟 1/5: 認識您</legend>
+            <div class="mb-3">
+              <label for="name" class="form-label">您的姓名 (必填)</label>
+              <input type="text" class="form-control" id="name" name="name" required aria-required="true">
+              <div id="name-error" class="error-text">請填寫姓名</div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">您的 Email (必填)</label>
+              <input type="email" class="form-control" id="email" name="email" required aria-required="true" autocomplete="email">
+              <div id="email-error" class="error-text">請輸入有效的 Email</div>
+            </div>
+            <div class="mb-3">
+              <label for="lineName_placeholder" class="form-label">您在 LINE 群組的暱稱</label>
+              <input type="text" class="form-control" id="lineName_placeholder" name="lineName_placeholder" placeholder="（若與姓名相同可不填）">
+            </div>
+            <div class="mb-3">
+              <label for="brandPref" class="form-label">偏好的品牌或喜歡的產品（可填）</label>
+              <input type="text" class="form-control" id="brandPref" name="brandPref" placeholder="例如：雅漾、Kiehl's、某某品牌">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">您是否願意在有折扣時收到通知？</label>
+              <div class="form-check"><input class="form-check-input" type="radio" name="consentDiscount" id="consent-yes" value="願意"><label class="form-check-label" for="consent-yes">願意</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="consentDiscount" id="consent-no" value="不願意"><label class="form-check-label" for="consent-no">不願意</label></div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">您的生日 (年/月) (用於 "壽星我最大" 活動)</label>
+              <div class="row g-2">
+                <div class="col">
+                  <input type="number" class="form-control" id="birthYear" name="birthYear" placeholder="西元年 (例如: 1990)">
+                </div>
+                <div class="col">
+                  <select class="form-select" id="birthMonth" name="birthMonth">
+                    <option value="">請選擇月份</option>
+                    <option value="1">1 月</option><option value="2">2 月</option><option value="3">3 月</option><option value="4">4 月</option><option value="5">5 月</option><option value="6">6 月</option><option value="7">7 月</option><option value="8">8 月</option><option value="9">9 月</option><option value="10">10 月</option><option value="11">11 月</option><option value="12">12 月</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-text qr-link-container">
+              還沒加入購物群嗎？ (請點擊或掃描下方 QR Code)
+              <a href="https://line.me/R/ti/g/uE53tGJEFZ" target="_blank" rel="noopener">
+                <img loading="lazy" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://line.me/R/ti/g/uE53tGJEFZ" alt="加入 LINE 購物群" width="150" height="150">
+              </a>
+            </div>
+            <div class="step-navigation">
+              <span></span>
+              <button type="button" class="btn btn-primary next-step">下一頁 (購物清單)</button>
+            </div>
+          </div>
+          
+          <div class="form-step" id="step-2">
+            <legend class="h5 border-bottom pb-2 mb-3">步驟 2/5: 您的日常購物清單</legend>
+            <div class="row g-2">
+              <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input main-category" type="checkbox" value="家用品" id="cat-home" name="mainCategories" data-target="#section-home" onchange="toggleSection(this)"><label class="form-check-label" for="cat-home">家用品</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input main-category" type="checkbox" value="旅行" id="cat-travel" name="mainCategories" data-target="#section-travel" onchange="toggleSection(this)"><label class="form-check-label" for="cat-travel">旅行</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input main-category" type="checkbox" value="沐浴用品" id="cat-bath" name="mainCategories" data-target="#section-bath" onchange="toggleSection(this)"><label class="form-check-label" for="cat-bath">沐浴用品</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input main-category" type="checkbox" value="營養保健" id="cat-nutrition" name="mainCategories" data-target="#section-nutrition" onchange="toggleSection(this)"><label class="form-check-label" for="cat-nutrition">營養保健</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input main-category" type="checkbox" value="護膚用品" id="cat-skincare" name="mainCategories" data-target="#section-skincare" onchange="toggleSection(this)"><label class="form-check-label" for="cat-skincare">護膚用品</label></div></div>
+            </div>
+            <hr class="my-3">
+            <div class="sub-sections">
+              <!-- 家用品 -->
+              <fieldset id="section-home" class="question-section" style="display: none;">
+                <legend class="h6">家用品</legend>
+                <label class="sub-question-label">Q. 消耗型日用品是？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="衛生紙/廚房紙巾" id="int-home-1"><label class="form-check-label" for="int-home-1">衛生紙 / 廚房紙巾</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="寵物食品/用品" id="int-home-2"><label class="form-check-label" for="int-home-2">寵物食品 / 用品</label></div>
+              </fieldset>
+
+              <!-- 旅行 -->
+              <fieldset id="section-travel" class="question-section" style="display: none;">
+                <legend class="h6">旅行</legend>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="旅行:國內輕旅行" id="int-travel-1"><label class="form-check-label" for="int-travel-1">國內輕旅行</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="旅行:國外深度旅遊" id="int-travel-2"><label class="form-check-label" for="int-travel-2">國外深度旅遊</label></div>
+              </fieldset>
+
+              <!-- 沐浴用品 -->
+              <fieldset id="section-bath" class="question-section" style="display: none;">
+                <legend class="h6">沐浴用品</legend>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="頭皮:頭皮屑/癢" id="int-bath-1"><label class="form-check-label" for="int-bath-1">頭皮屑 / 頭皮癢</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="頭皮:掉髮/髮量稀疏" id="int-bath-2"><label class="form-check-label" for="int-bath-2">掉髮 / 髮量稀疏</label></div>
+              </fieldset>
+
+              <!-- 營養保健 -->
+              <fieldset id="section-nutrition" class="question-section" style="display: none;">
+                <legend class="h6">營養保健</legend>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="保健:骨質/關節" id="int-nutri-1"><label class="form-check-label" for="int-nutri-1">骨質 / 關節保養</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="保健:腸胃/益生菌" id="int-nutri-2"><label class="form-check-label" for="int-nutri-2">腸胃 / 消化道 (益生菌)</label></div>
+              </fieldset>
+
+              <!-- 護膚用品 -->
+              <fieldset id="section-skincare" class="question-section" style="display: none;">
+                <legend class="h6">護膚用品</legend>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="護膚:保濕" id="int-skin-6"><label class="form-check-label" for="int-skin-6">保濕 / 改善乾燥</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="護膚:美白/淡斑" id="int-skin-7"><label class="form-check-label" for="int-skin-7">美白 / 淡斑</label></div>
+              </fieldset>
+            </div>
+            <div class="step-navigation">
+              <button type="button" class="btn btn-secondary prev-step">上一頁</button>
+              <button type="button" class="btn btn-primary next-step">下一頁 (購物習慣)</button>
+            </div>
+          </div>
+          
+          <div class="form-step" id="step-3">
+            <legend class="h5 border-bottom pb-2 mb-3">步驟 3/5: 購物習慣</legend>
+            <div class="mb-3">
+              <label class="form-label">補貨 / 回購頻率大約是？</label>
+              <select class="form-select" id="repurchaseFrequency" name="repurchaseFrequency">
+                <option value="">請選擇</option>
+                <option value="每週">每週</option>
+                <option value="每月">每月</option>
+                <option value="每季">每季</option>
+              </select>
+            </div>
+            <div class="step-navigation">
+              <button type="button" class="btn btn-secondary prev-step">上一頁</button>
+              <button type="button" class="btn btn-primary next-step">下一頁</button>
+            </div>
+          </div>
+
+          <div class="form-step" id="step-4">
+            <legend class="h5 border-bottom pb-2 mb-3">步驟 4/5: 服務與機會</legend>
+            <div class="mb-4 p-3 bg-light rounded">
+              <label class="form-label fw-bold">如果我來擔任您的購物顧問，幫助您省時、省錢並找到優質商品，您願意嗎？</label>
+              <div class="form-check"><input class="form-check-input" type="radio" name="consultant" id="consultant-yes" value="願意"><label class="form-check-label" for="consultant-yes">沒問題，有人服務真好</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="consultant" id="consultant-no" value="不願意"><label class="form-check-label" for="consultant-no">沒關係，我自己買就好</label></div>
+            </div>
+            <div class="step-navigation">
+              <button type="button" class="btn btn-secondary prev-step">上一頁</button>
+              <button type="button" class="btn btn-primary next-step">下一頁 (最後一步)</button>
+            </div>
+          </div>
+          
+          <div class="form-step" id="step-5">
+            <legend class="h5 border-bottom pb-2 mb-3">步驟 5/5: 您的黃金問題</legend>
+            <div class="mb-3">
+              <label for="top3Needs" class="form-label">最後，在您勾選的所有項目中，最希望「優先」收到特價通知的三項商品是？</label>
+              <input type="text" class="form-control" id="top3Needs" name="top3Needs" placeholder="例如：益生菌, 衛生紙, 氣墊粉餅">
+            </div>
+
+            <div id="status-message" class="mt-3"></div>
+
+            <div class="step-navigation">
+              <button type="button" class="btn btn-secondary prev-step">上一頁</button>
+              <button type="submit" class="btn btn-success btn-lg" id="submit-button">完成並提交</button>
+            </div>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+      var currentStep = 1;
+      var totalSteps = 5;
+      var AUTO_SAVE_KEY = 'karen_form_draft_v2';
+
+      $(document).ready(function() {
+        loadProgress();
+
+        $(".next-step").click(function() {
+          if (validateStep(currentStep) && currentStep < totalSteps) {
+            $("#step-" + currentStep).removeClass("active");
+            currentStep++;
+            $("#step-" + currentStep).addClass("active");
+            updateProgressBar();
+            $('html, body').scrollTop(0);
+            saveProgress();
+          }
+        });
+
+        $(".prev-step").click(function() {
+          if (currentStep > 1) {
+            $("#step-" + currentStep).removeClass("active");
+            currentStep--;
+            $("#step-" + currentStep).addClass("active");
+            updateProgressBar();
+            $('html, body').scrollTop(0);
+            saveProgress();
+          }
+        });
+
+        function updateProgressBar() {
+          var percentage = (currentStep / totalSteps) * 100;
+          $("#progress-bar").css("width", percentage + "%");
+        }
+
+        function validateStep(step) {
+          $("#step-" + step + " .field-error").removeClass('field-error');
+          $("#step-" + step + " .error-text").hide();
+
+          if (step === 1) {
+            var email = $("#email").val().trim();
+            var name = $("#name").val().trim();
+            var isValid = true;
+            if (!name) { $("#name").addClass('field-error'); $("#name-error").show(); isValid = false; }
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { $("#email").addClass('field-error'); $("#email-error").show(); isValid = false; }
+            return isValid;
+          }
+          return true;
+        }
+
+        window.toggleSection = function(checkbox) {
+          var targetId = $(checkbox).data('target');
+          if (checkbox.checked) { $(targetId).slideDown(); } else { $(targetId).slideUp(); }
+        }
+
+        // ==========================================
+        // 核心修改：改用 fetch 呼叫 Vercel Serverless API
+        // ==========================================
+        $("#customer-form").on("submit", function(e) {
+          e.preventDefault(); 
+          if (!validateStep(1)) return;
+          
+          $("#submit-button").prop('disabled', true).text('提交中...');
+          $("#status-message").html('<div class="alert alert-info">資料傳送中，請稍候...</div>');
+
+          var formData = {
+            email: $("#email").val().trim(),
+            name: $("#name").val().trim(),
+            lineName_placeholder: $("#lineName_placeholder").val().trim(),
+            birthYear: $("#birthYear").val().trim(), 
+            birthMonth: $("#birthMonth").val(), 
+            top3Needs: $("#top3Needs").val().trim(),
+            mainCategories: [],
+            allInterests: [],
+            habit: $('input[name="habit"]:checked').val() || "", 
+            websites: $("#websites").val().trim() || "", 
+            reasons: [], 
+            opportunity: $('input[name="opportunity"]:checked').val() || "",
+            consultant: $('input[name="consultant"]:checked').val() || "",
+            brandPref: $("#brandPref").val().trim() || "",
+            repurchaseFrequency: $("#repurchaseFrequency").val() || "",
+            consentDiscount: $('input[name="consentDiscount"]:checked').val() || ""
+          };
+          
+          $('input[name="mainCategories"]:checked').each(function() { formData.mainCategories.push($(this).val()); });
+          $('input[name="interests"]:checked').each(function() { formData.allInterests.push($(this).val()); });
+          $('input[name="reasons"]:checked').each(function() { formData.reasons.push($(this).val()); });
+
+          // 呼叫 Vercel 的後端 API
+          fetch('/api/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data.success) {
+              clearSavedProgress();
+              $("#status-message").html('<div class="alert alert-success">感謝您的回覆！我們已收到，稍後會與您聯繫。<div class="mt-2"><a class="btn btn-sm btn-primary" href="https://line.me/R/ti/g/uE53tGJEFZ" target="_blank">前往 LINE 群組</a></div></div>');
+              $("#submit-button").prop('disabled', false).text('完成並提交');
+            } else {
+              throw new Error(data.message || '伺服器發生錯誤');
+            }
+          })
+          .catch(err => {
+            console.error("提交錯誤:", err);
+            $("#status-message").html('<div class="alert alert-danger">' + err.message + '</div>');
+            $("#submit-button").prop('disabled', false).text('重新提交');
+          });
+        });
+
+        // LocalStorage 相關函數
+        function saveProgress() {
+          var data = {};
+          $('#customer-form').find('input, select').each(function() {
+            var $el = $(this);
+            var name = $el.attr('name');
+            if (!name) return;
+            if ($el.is(':checkbox')) {
+              if (!data[name]) data[name] = [];
+              if ($el.prop('checked')) data[name].push($el.val());
+            } else if ($el.is(':radio')) {
+              if ($('[name="' + name + '"]:checked').length) data[name] = $('[name="' + name + '"]:checked').val();
+            } else {
+              data[name] = $el.val();
+            }
+          });
+          localStorage.setItem(AUTO_SAVE_KEY, JSON.stringify(data));
+        }
+
+        function loadProgress() {
+          try {
+            var raw = localStorage.getItem(AUTO_SAVE_KEY);
+            if (!raw) return;
+            var obj = JSON.parse(raw);
+            for (var name in obj) {
+              var val = obj[name];
+              var els = $('[name="' + name + '"]');
+              if (els.attr('type') === 'checkbox' || els.attr('type') === 'radio') {
+                if (Array.isArray(val)) els.each(function() { if (val.indexOf($(this).val()) !== -1) $(this).prop('checked', true); });
+                else els.filter('[value="' + val + '"]').prop('checked', true);
+              } else els.val(val);
+            }
+            // 觸發 toggleSection
+            $('.main-category:checked').each(function(){ window.toggleSection(this); });
+          } catch (e) {}
+        }
+
+        function clearSavedProgress() { localStorage.removeItem(AUTO_SAVE_KEY); }
+      });
+    </script>
+  </body>
+</html>
