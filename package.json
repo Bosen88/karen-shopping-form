@@ -2,9 +2,6 @@
   "name": "karen-shopping-form",
   "version": "1.0.0",
   "type": "module",
-  "scripts": {
-    "start": "node api/submit.js"
-  },
   "dependencies": {
     "google-auth-library": "^9.0.0",
     "google-spreadsheet": "^4.1.1"
