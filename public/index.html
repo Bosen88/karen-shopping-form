@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Karen & Bosen您的專屬購物顧問</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
       /* ===========================
-         styles.html - A 優雅經典 (完整合併版)
+         合併的完整樣式 (styles.html + 自訂樣式)
          =========================== */
       :root{
         --primary: #0B3B5C;       
@@ -171,7 +172,7 @@
         color: #fff;
       }
 
-      .qr-link-container { text-align: center; margin-top: .6rem; }
+      .qr-link-container { text-align: center; margin-top: 10px; }
       .qr-link-container img {
         border-radius: 10px;
         border: 1px solid rgba(11,59,92,0.04);
@@ -208,32 +209,46 @@
             <legend class="h5 border-bottom pb-2 mb-3">步驟 1/5: 認識您</legend>
             <div class="mb-3">
               <label for="name" class="form-label">您的姓名 (必填)</label>
-              <input type="text" class="form-control" id="name" name="name" required aria-required="true">
+              <input type="text" class="form-control" id="name" name="name" required aria-required="true" aria-describedby="nameHelp">
+              <div id="nameHelp" class="form-text">請填寫真實姓名，方便我們稱呼與服務。</div>
               <div id="name-error" class="error-text">請填寫姓名</div>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">您的 Email (必填)</label>
-              <input type="email" class="form-control" id="email" name="email" required aria-required="true" autocomplete="email">
+              <input type="email" class="form-control" id="email" name="email" required aria-required="true" aria-describedby="emailHelp" autocomplete="email">
+              <div id="emailHelp" class="form-text">我們會將優惠或訂單資訊寄到此信箱（請確保正確）。</div>
               <div id="email-error" class="error-text">請輸入有效的 Email</div>
             </div>
             <div class="mb-3">
               <label for="lineName_placeholder" class="form-label">您在 LINE 群組的暱稱</label>
-              <input type="text" class="form-control" id="lineName_placeholder" name="lineName_placeholder" placeholder="（若與姓名相同可不填）">
-            </div>
-            <div class="mb-3">
-              <label for="brandPref" class="form-label">偏好的品牌或喜歡的產品（可填）</label>
-              <input type="text" class="form-control" id="brandPref" name="brandPref" placeholder="例如：雅漾、Kiehl's、某某品牌">
-            </div>
-            <div class="mb-3">
-              <label class="form-label">您是否願意在有折扣時收到通知？</label>
-              <div class="form-check"><input class="form-check-input" type="radio" name="consentDiscount" id="consent-yes" value="願意"><label class="form-check-label" for="consent-yes">願意</label></div>
-              <div class="form-check"><input class="form-check-input" type="radio" name="consentDiscount" id="consent-no" value="不願意"><label class="form-check-label" for="consent-no">不願意</label></div>
+              <input type="text" class="form-control" id="lineName_placeholder" name="lineName_placeholder" placeholder="（若與姓名相同可不填）" aria-describedby="lineHelp">
+              <div class="mb-3 mt-3">
+                <label for="brandPref" class="form-label">偏好的品牌或喜歡的產品（可填）</label>
+                <input type="text" class="form-control" id="brandPref" name="brandPref" placeholder="例如：雅漾、Kiehl's、某某品牌">
+                <div class="form-text">填寫品牌偏好能幫我更精準推薦（選填）</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">您是否願意在有折扣時收到通知？</label>
+                <div class="form-check"><input class="form-check-input" type="radio" name="consentDiscount" id="consent-yes" value="願意"><label class="form-check-label" for="consent-yes">願意</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="consentDiscount" id="consent-no" value="不願意"><label class="form-check-label" for="consent-no">不願意</label></div>
+              </div>
+
+              <div class="form-text qr-link-container" aria-hidden="false">
+                還沒加入購物群嗎？ (請點擊或掃描下方 QR Code)
+                <a href="https://line.me/R/ti/g/uE53tGJEFZ" target="_blank" rel="noopener" aria-label="加入 LINE 購物群">
+                  <img loading="lazy" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://line.me/R/ti/g/uE53tGJEFZ" 
+                       alt="加入 LINE 購物群" 
+                       width="150" 
+                       height="150">
+                </a>
+              </div>
             </div>
             <div class="mb-3">
               <label class="form-label">您的生日 (年/月) (用於 "壽星我最大" 活動)</label>
               <div class="row g-2">
                 <div class="col">
-                  <input type="number" class="form-control" id="birthYear" name="birthYear" placeholder="西元年 (例如: 1990)">
+                  <input type="number" class="form-control" id="birthYear" name="birthYear" placeholder="出生西元年 (例如: 1990)" min="1900" max="2025">
                 </div>
                 <div class="col">
                   <select class="form-select" id="birthMonth" name="birthMonth">
@@ -243,64 +258,204 @@
                 </div>
               </div>
             </div>
-            <div class="form-text qr-link-container">
-              還沒加入購物群嗎？ (請點擊或掃描下方 QR Code)
-              <a href="https://line.me/R/ti/g/uE53tGJEFZ" target="_blank" rel="noopener">
-                <img loading="lazy" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://line.me/R/ti/g/uE53tGJEFZ" alt="加入 LINE 購物群" width="150" height="150">
-              </a>
-            </div>
             <div class="step-navigation">
               <span></span>
-              <button type="button" class="btn btn-primary next-step">下一頁 (購物清單)</button>
+              <button type="button" class="btn btn-primary next-step" id="to-step-2">下一頁 (購物清單)</button>
             </div>
           </div>
           
           <div class="form-step" id="step-2">
             <legend class="h5 border-bottom pb-2 mb-3">步驟 2/5: 您的日常購物清單</legend>
+            <p class="text-muted small">請勾選您感興趣的類別，下方會出現詳細問題</p>
             <div class="row g-2">
-              <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input main-category" type="checkbox" value="家用品" id="cat-home" name="mainCategories" data-target="#section-home" onchange="toggleSection(this)"><label class="form-check-label" for="cat-home">家用品</label></div></div>
-              <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input main-category" type="checkbox" value="旅行" id="cat-travel" name="mainCategories" data-target="#section-travel" onchange="toggleSection(this)"><label class="form-check-label" for="cat-travel">旅行</label></div></div>
-              <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input main-category" type="checkbox" value="沐浴用品" id="cat-bath" name="mainCategories" data-target="#section-bath" onchange="toggleSection(this)"><label class="form-check-label" for="cat-bath">沐浴用品</label></div></div>
-              <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input main-category" type="checkbox" value="營養保健" id="cat-nutrition" name="mainCategories" data-target="#section-nutrition" onchange="toggleSection(this)"><label class="form-check-label" for="cat-nutrition">營養保健</label></div></div>
-              <div class="col-6 col-md-4"><div class="form-check"><input class="form-check-input main-category" type="checkbox" value="護膚用品" id="cat-skincare" name="mainCategories" data-target="#section-skincare" onchange="toggleSection(this)"><label class="form-check-label" for="cat-skincare">護膚用品</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check form-check-inline"><input class="form-check-input main-category" type="checkbox" value="家用品" id="cat-home" name="mainCategories" data-target="#section-home" onchange="toggleSection(this)"><label class="form-check-label" for="cat-home">家用品</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check form-check-inline"><input class="form-check-input main-category" type="checkbox" value="旅行" id="cat-travel" name="mainCategories" data-target="#section-travel" onchange="toggleSection(this)"><label class="form-check-label" for="cat-travel">旅行</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check form-check-inline"><input class="form-check-input main-category" type="checkbox" value="沐浴用品" id="cat-bath" name="mainCategories" data-target="#section-bath" onchange="toggleSection(this)"><label class="form-check-label" for="cat-bath">沐浴用品</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check form-check-inline"><input class="form-check-input main-category" type="checkbox" value="嬰幼兒用品" id="cat-baby" name="mainCategories" data-target="#section-baby" onchange="toggleSection(this)"><label class="form-check-label" for="cat-baby">嬰幼兒用品</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check form-check-inline"><input class="form-check-input main-category" type="checkbox" value="營養保健" id="cat-nutrition" name="mainCategories" data-target="#section-nutrition" onchange="toggleSection(this)"><label class="form-check-label" for="cat-nutrition">營養保健</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check form-check-inline"><input class="form-check-input main-category" type="checkbox" value="體重管理" id="cat-weight" name="mainCategories" data-target="#section-weight" onchange="toggleSection(this)"><label class="form-check-label" for="cat-weight">體重管理</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check form-check-inline"><input class="form-check-input main-category" type="checkbox" value="清潔用品" id="cat-clean" name="mainCategories" data-target="#section-clean" onchange="toggleSection(this)"><label class="form-check-label" for="cat-clean">清潔用品</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check form-check-inline"><input class="form-check-input main-category" type="checkbox" value="護膚用品" id="cat-skincare" name="mainCategories" data-target="#section-skincare" onchange="toggleSection(this)"><label class="form-check-label" for="cat-skincare">護膚用品</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check form-check-inline"><input class="form-check-input main-category" type="checkbox" value="彩妝用品" id="cat-makeup" name="mainCategories" data-target="#section-makeup" onchange="toggleSection(this)"><label class="form-check-label" for="cat-makeup">彩妝用品</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check form-check-inline"><input class="form-check-input main-category" type="checkbox" value="洗衣用品" id="cat-laundry" name="mainCategories" data-target="#section-laundry" onchange="toggleSection(this)"><label class="form-check-label" for="cat-laundry">洗衣用品</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check form-check-inline"><input class="form-check-input main-category" type="checkbox" value="頭髮保養" id="cat-hair" name="mainCategories" data-target="#section-hair" onchange="toggleSection(this)"><label class="form-check-label" for="cat-hair">頭髮保養</label></div></div>
+              <div class="col-6 col-md-4"><div class="form-check form-check-inline"><input class="form-check-input main-category" type="checkbox" value="汽車保養" id="cat-car" name="mainCategories" data-target="#section-car" onchange="toggleSection(this)"><label class="form-check-label" for="cat-car">汽車保養</label></div></div>
             </div>
             <hr class="my-3">
             <div class="sub-sections">
               <!-- 家用品 -->
               <fieldset id="section-home" class="question-section" style="display: none;">
                 <legend class="h6">家用品</legend>
-                <label class="sub-question-label">Q. 消耗型日用品是？</label>
+                <label class="sub-question-label">Q. 您家中最常回購的「消耗型」日用品是？</label>
                 <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="衛生紙/廚房紙巾" id="int-home-1"><label class="form-check-label" for="int-home-1">衛生紙 / 廚房紙巾</label></div>
                 <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="寵物食品/用品" id="int-home-2"><label class="form-check-label" for="int-home-2">寵物食品 / 用品</label></div>
+
+                <label class="sub-question-label">Q. 您平常習慣在哪裡購買家用品？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="通路:連鎖超市" id="int-home-3"><label class="form-check-label" for="int-home-3">連鎖超市</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="通路:傳統市場" id="int-home-4"><label class="form-check-label" for="int-home-4">傳統市場 / 在地店家</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="通路:網路電商" id="int-home-5"><label class="form-check-label" for="int-home-5">網路電商</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="通路:團購群組" id="int-home-6"><label class="form-check-label" for="int-home-6">團購群組 / 產地直送</label></div>
+
+                <label class="sub-question-label">Q. 在選購「單價較高」的家電時，您最重視的因素是？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="重視:價格與CP值" id="int-home-7"><label class="form-check-label" for="int-home-7">價格與 CP 值</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="重視:品牌形象" id="int-home-8"><label class="form-check-label" for="int-home-8">品牌形象與售後服務</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="重視:功能性" id="int-home-9"><label class="form-check-label" for="int-home-9">功能性與獨特性</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="重視:節能環保" id="int-home-10"><label class="form-check-label" for="int-home-10">節能或環保</label></div>
               </fieldset>
 
               <!-- 旅行 -->
               <fieldset id="section-travel" class="question-section" style="display: none;">
                 <legend class="h6">旅行</legend>
+                <label class="sub-question-label">Q. 您偏好哪種旅行方式？</label>
                 <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="旅行:國內輕旅行" id="int-travel-1"><label class="form-check-label" for="int-travel-1">國內輕旅行</label></div>
                 <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="旅行:國外深度旅遊" id="int-travel-2"><label class="form-check-label" for="int-travel-2">國外深度旅遊</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="旅行:偏好自由行" id="int-travel-3"><label class="form-check-label" for="int-travel-3">偏好自由行 / 機加酒</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="旅行:偏好跟團" id="int-travel-4"><label class="form-check-label" for="int-travel-4">偏好跟團 / 全包式行程</label></div>
+
+                <label class="sub-question-label">Q. 在規劃旅行時，您最常使用哪個平台？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="平台:Klook/KKday" id="int-travel-5"><label class="form-check-label" for="int-travel-5">Klook / KKday</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="平台:Agoda/Booking" id="int-travel-6"><label class="form-check-label" for="int-travel-6">Agoda / Booking.com</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="平台:官網" id="int-travel-7"><label class="form-check-label" for="int-travel-7">航空公司或飯店官網</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="平台:實體旅行社" id="int-travel-8"><label class="form-check-label" for="int-travel-8">實體旅行社</label></div>
               </fieldset>
 
               <!-- 沐浴用品 -->
               <fieldset id="section-bath" class="question-section" style="display: none;">
                 <legend class="h6">沐浴用品</legend>
+                <label class="sub-question-label">Q. 您目前最想改善的「頭皮/頭髮」問題是？</label>
                 <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="頭皮:頭皮屑/癢" id="int-bath-1"><label class="form-check-label" for="int-bath-1">頭皮屑 / 頭皮癢</label></div>
                 <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="頭皮:掉髮/髮量稀疏" id="int-bath-2"><label class="form-check-label" for="int-bath-2">掉髮 / 髮量稀疏</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="頭皮:染燙受損/乾燥" id="int-bath-3"><label class="form-check-label" for="int-bath-3">染燙受損 / 乾燥斷裂</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="頭皮:容易出油/扁塌" id="int-bath-4"><label class="form-check-label" for="int-bath-4">容易出油 / 髮根扁塌</label></div>
+
+                <label class="sub-question-label">Q. 在選購沐浴品時，您最在意的是？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="沐浴:重視香味" id="int-bath-5"><label class="form-check-label" for="int-bath-5">香味</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="沐浴:重視功能性" id="int-bath-6"><label class="form-check-label" for="int-bath-6">功能性</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="沐浴:重視天然成分" id="int-bath-7"><label class="form-check-label" for="int-bath-7">天然成分 / 手工皂</label></div>
+              </fieldset>
+
+              <!-- 嬰幼兒用品 -->
+              <fieldset id="section-baby" class="question-section" style="display: none;">
+                <legend class="h6">嬰幼兒用品</legend>
+                <label class="sub-question-label">Q. 您的寶寶目前處於哪個階段？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="寶寶:孕期中" id="int-baby-1"><label class="form-check-label" for="int-baby-1">孕期中 / 準備中</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="寶寶:新生兒(0-6M)" id="int-baby-2"><label class="form-check-label" for="int-baby-2">新生兒 (0-6M)</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="寶寶:嬰兒(6M-1.5Y)" id="int-baby-3"><label class="form-check-label" for="int-baby-3">嬰兒 (6M - 1.5Y)</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="寶寶:幼兒(1.5Y-3Y)" id="int-baby-4"><label class="form-check-label" for="int-baby-4">幼兒 (1.5Y - 3Y)</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="寶寶:兒童(3Y+)" id="int-baby-5"><label class="form-check-label" for="int-baby-5">兒童 (3Y+)</label></div>
+
+                <label class="sub-question-label">Q. 您有固定回購的品項嗎？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="寶寶:回購尿布" id="int-baby-6"><label class="form-check-label" for="int-baby-6">尿布</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="寶寶:回購嬰兒奶粉" id="int-baby-7"><label class="form-check-label" for="int-baby-7">嬰兒奶粉</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="寶寶:回購嬰兒沐浴/乳液" id="int-baby-8"><label class="form-check-label" for="int-baby-8">嬰兒沐浴 / 乳液</label></div>
               </fieldset>
 
               <!-- 營養保健 -->
               <fieldset id="section-nutrition" class="question-section" style="display: none;">
                 <legend class="h6">營養保健</legend>
+                <label class="sub-question-label">Q. 您目前最關注的健康保健需求是？</label>
                 <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="保健:骨質/關節" id="int-nutri-1"><label class="form-check-label" for="int-nutri-1">骨質 / 關節保養</label></div>
                 <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="保健:腸胃/益生菌" id="int-nutri-2"><label class="form-check-label" for="int-nutri-2">腸胃 / 消化道 (益生菌)</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="保健:增強體力/B群" id="int-nutri-3"><label class="form-check-label" for="int-nutri-3">增強體力 / 精神 (B群)</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="保健:眼睛/葉黃素" id="int-nutri-4"><label class="form-check-label" for="int-nutri-4">眼睛 / 視力保健 (葉黃素)</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="保健:三高/心血管" id="int-nutri-5"><label class="form-check-label" for="int-nutri-5">三高 / 心血管</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="保健:女性/膠原蛋白" id="int-nutri-6"><label class="form-check-label" for="int-nutri-6">女性 / 熟齡保養 (膠原蛋白)</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="保健:睡眠/壓力" id="int-nutri-7"><label class="form-check-label" for="int-nutri-7">睡眠 / 壓力</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="保健:兒童/青少年營養" id="int-nutri-8"><label class="form-check-label" for="int-nutri-8">兒童 / 青少年營養</label></div>
+              </fieldset>
+
+              <!-- 清潔用品 -->
+              <fieldset id="section-clean" class="question-section" style="display: none;">
+                <legend class="h6">清潔用品</legend>
+                <label class="sub-question-label">Q. 在選購清潔用品時，您最重視的點是？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="清潔:重視_價格CP值" id="int-clean-1"><label class="form-check-label" for="int-clean-1">價格便宜 / CP 值高</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="清潔:重視_清潔力" id="int-clean-2"><label class="form-check-label" for="int-clean-2">清潔力強</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="清潔:重視_環保不傷手" id="int-clean-3"><label class="form-check-label" for="int-clean-3">成分環保 / 天然 / 不傷手</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="清潔:重視_品牌香味" id="int-clean-4"><label class="form-check-label" for="int-clean-4">品牌 / 特殊香味</label></div>
+
+                <label class="sub-question-label">Q. 您經常購買哪些清潔品？（可複選）</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="清潔品:萬用清潔劑" id="int-clean-5"><label class="form-check-label" for="int-clean-5">萬用清潔劑（牆壁 / 地板 / 家飾 / 污斑）</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="清潔品:碗盤洗潔液" id="int-clean-6"><label class="form-check-label" for="int-clean-6">碗盤洗潔液 / 洗手乳</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="清潔品:去油劑_地毯" id="int-clean-7"><label class="form-check-label" for="int-clean-7">去油劑 / 地毯清潔劑</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="清潔品:去汙不鏽鋼" id="int-clean-8"><label class="form-check-label" for="int-clean-8">去汙清潔劑（不鏽鋼 / 花崗石 / 磁磚 / 水泥 / 錫 / 鉻）</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="清潔品:清潔用品組" id="int-clean-9"><label class="form-check-label" for="int-clean-9">清潔用品組 / 套裝</label></div>
+              </fieldset>
+
+              <!-- 洗衣用品 -->
+              <fieldset id="section-laundry" class="question-section" style="display: none;">
+                <legend class="h6">洗衣用品</legend>
+                <label class="sub-question-label">Q. 您最常使用哪類洗衣用品？（可複選）</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="洗衣:洗衣精" id="int-laund-1"><label class="form-check-label" for="int-laund-1">洗衣精</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="洗衣:柔軟精" id="int-laund-2"><label class="form-check-label" for="int-laund-2">衣物柔軟精</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="洗衣:易潔包" id="int-laund-3"><label class="form-check-label" for="int-laund-3">洗衣易潔包（單劑型）</label></div>
+                <label class="sub-question-label">Q. 洗衣時您最重視的點？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="洗衣:重視香味" id="int-laund-4"><label class="form-check-label" for="int-laund-4">香味持久</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="洗衣:重視成分" id="int-laund-5"><label class="form-check-label" for="int-laund-5">成分溫和 / 不傷手</label></div>
               </fieldset>
 
               <!-- 護膚用品 -->
               <fieldset id="section-skincare" class="question-section" style="display: none;">
                 <legend class="h6">護膚用品</legend>
+                <label class="sub-question-label">Q. 您的膚質比較偏向哪一種？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="膚質:中性肌" id="int-skin-1"><label class="form-check-label" for="int-skin-1">中性肌</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="膚質:乾性肌" id="int-skin-2"><label class="form-check-label" for="int-skin-2">乾性肌</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="膚質:油性肌" id="int-skin-3"><label class="form-check-label" for="int-skin-3">油性肌</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="膚質:混合性" id="int-skin-4"><label class="form-check-label" for="int-skin-4">混合性</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="膚質:敏感肌" id="int-skin-5"><label class="form-check-label" for="int-skin-5">敏感肌</label></div>
+
+                <label class="sub-question-label">Q. 您想改善的護膚重點是？</label>
                 <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="護膚:保濕" id="int-skin-6"><label class="form-check-label" for="int-skin-6">保濕 / 改善乾燥</label></div>
                 <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="護膚:美白/淡斑" id="int-skin-7"><label class="form-check-label" for="int-skin-7">美白 / 淡斑</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="護膚:粉刺/痘痘" id="int-skin-8"><label class="form-check-label" for="int-skin-8">粉刺 / 痘痘</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="護膚:抗老/除皺" id="int-skin-9"><label class="form-check-label" for="int-skin-9">抗老 / 除皺</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="護膚:防曬" id="int-skin-10"><label class="form-check-label" for="int-skin-10">防曬 / 隔離</label></div>
+
+                <label class="sub-question-label">Q. 常用或想嘗試的產品類型？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="護膚:潔膚乳" id="int-skin-11"><label class="form-check-label" for="int-skin-11">潔膚乳 / 洗面乳</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="護膚:化妝水" id="int-skin-12"><label class="form-check-label" for="int-skin-12">化妝水</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="護膚:乳液/乳霜" id="int-skin-13"><label class="form-check-label" for="int-skin-13">乳液 / 保濕霜</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="護膚:面膜" id="int-skin-14"><label class="form-check-label" for="int-skin-14">護膚面膜</label></div>
               </fieldset>
+
+              <!-- 彩妝 -->
+              <fieldset id="section-makeup" class="question-section" style="display: none;">
+                <legend class="h6">彩妝用品</legend>
+                <label class="sub-question-label">Q. 您平常化妝的頻率大概是？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="彩妝:頻率_每天" id="int-makeup-1"><label class="form-check-label" for="int-makeup-1">幾乎每天</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="彩妝:頻率_重要場合" id="int-makeup-2"><label class="form-check-label" for="int-makeup-2">僅重要場合 / 週末出遊</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="彩妝:頻率_幾乎不化" id="int-makeup-3"><label class="form-check-label" for="int-makeup-3">幾乎不化妝</label></div>
+
+                <label class="sub-question-label">Q. 您最常補貨、也最在意的彩妝品項是？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="彩妝:隔離/防曬" id="int-makeup-4"><label class="form-check-label" for="int-makeup-4">隔離 / 防曬 / 飾底乳</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="彩妝:底妝" id="int-makeup-5"><label class="form-check-label" for="int-makeup-5">底妝 (粉底液 / 氣墊)</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="彩妝:定妝" id="int-makeup-6"><label class="form-check-label" for="int-makeup-6">定妝 (蜜粉 / 噴霧)</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="彩妝:眉眼" id="int-makeup-7"><label class="form-check-label" for="int-makeup-7">眉毛 / 眼線</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="彩妝:唇部" id="int-makeup-8"><label class="form-check-label" for="int-makeup-8">唇膏 / 唇彩</label></div>
+              </fieldset>
+
+              <!-- 頭髮保養 -->
+              <fieldset id="section-hair" class="question-section" style="display: none;">
+                <legend class="h6">頭髮保養</legend>
+                <label class="sub-question-label">Q. 你的頭皮/頭髮現在最困擾是？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="頭髮:出油" id="int-hair-1"><label class="form-check-label" for="int-hair-1">出油</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="頭髮:頭皮癢" id="int-hair-2"><label class="form-check-label" for="int-hair-2">頭皮癢</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="頭髮:乾燥毛躁" id="int-hair-3"><label class="form-check-label" for="int-hair-3">乾燥 / 毛躁</label></div>
+
+                <label class="sub-question-label">Q. 常用或想嘗試的頭髮產品？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="頭髮:洗髮乳" id="int-hair-4"><label class="form-check-label" for="int-hair-4">洗髮乳</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="頭髮:潤髮乳" id="int-hair-5"><label class="form-check-label" for="int-hair-5">潤髮乳 / 护髮素</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="頭髮:頭皮去角質" id="int-hair-6"><label class="form-check-label" for="int-hair-6">頭皮去角質</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="頭髮:造型髮膠" id="int-hair-7"><label class="form-check-label" for="int-hair-7">造型 / 定型產品</label></div>
+              </fieldset>
+
+              <!-- 汽車保養 -->
+              <fieldset id="section-car" class="question-section" style="display: none;">
+                <legend class="h6">汽車保養</legend>
+                <label class="sub-question-label">Q. 您是否關心汽車保養或省油產品？</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="車:關心省油" id="int-car-1"><label class="form-check-label" for="int-car-1">關心減少油耗 / 提升燃油效率</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" name="interests" value="車:機油引擎保養" id="int-car-2"><label class="form-check-label" for="int-car-2">機油 / 引擎保養產品</label></div>
+              </fieldset>
+
             </div>
             <div class="step-navigation">
               <button type="button" class="btn btn-secondary prev-step">上一頁</button>
@@ -309,29 +464,65 @@
           </div>
           
           <div class="form-step" id="step-3">
-            <legend class="h5 border-bottom pb-2 mb-3">步驟 3/5: 購物習慣</legend>
+            <legend class="h5 border-bottom pb-2 mb-3">步驟 3/5: 您的購物習慣</legend>
             <div class="mb-3">
-              <label class="form-label">補貨 / 回購頻率大約是？</label>
-              <select class="form-select" id="repurchaseFrequency" name="repurchaseFrequency">
-                <option value="">請選擇</option>
-                <option value="每週">每週</option>
-                <option value="每月">每月</option>
-                <option value="每季">每季</option>
-              </select>
+              <label class="form-label">A. 您覺得網路購物是趨勢嗎？</label>
+              <div class="form-check"><input class="form-check-input" type="radio" name="trend" id="trend-yes" value="是"><label class="form-check-label" for="trend-yes">是</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="trend" id="trend-no" value="否"><label class="form-check-label" for="trend-no">否</label></div>
             </div>
+
+            <div class="mb-3">
+              <label class="form-label">B. 您平常是否有網路購物的習慣？</label>
+              <div class="form-check"><input class="form-check-input" type="radio" name="habit" id="habit-often" value="經常"><label class="form-check-label" for="habit-often">經常</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="habit" id="habit-sometimes" value="偶而"><label class="form-check-label" for="habit-sometimes">偶而</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="habit" id="habit-never" value="從未"><label class="form-check-label" for="habit-never">從未</label></div>
+            </div>
+
+            <div class="mb-3">
+            <label for="repurchaseFrequency" class="form-label">您一般補貨 / 回購頻率大約是？</label>
+            <select class="form-select" id="repurchaseFrequency" name="repurchaseFrequency">
+              <option value="">請選擇</option>
+              <option value="每週">每週</option>
+              <option value="每月">每月</option>
+              <option value="每季">每季</option>
+              <option value="不定期/視需求">不定期 / 視需求</option>
+            </select>
+            </div>
+
+            <div class="mb-3">
+              <label for="websites" class="form-label">您習慣逛的網站是？ (可填寫)</label>
+              <input type="text" class="form-control" id="websites" name="websites" placeholder="例如: Momo, 蝦皮, PChome...">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">C. 您選擇網路購物的原因是？ (可複選)</label>
+              <div class="form-check"><input class="form-check-input" type="checkbox" name="reasons" id="reason-1" value="價格優勢"><label class="form-check-label" for="reason-1">價格優勢</label></div>
+              <div class="form-check"><input class="form-check-input" type="checkbox" name="reasons" id="reason-2" value="省時快速"><label class="form-check-label" for="reason-2">省時快速</label></div>
+              <div class="form-check"><input class="form-check-input" type="checkbox" name="reasons" id="reason-3" value="宅配到府"><label class="form-check-label" for="reason-3">宅配到府</label></div>
+              <div class="form-check"><input class="form-check-input" type="checkbox" name="reasons" id="reason-4" value="方便簡單"><label class="form-check-label" for="reason-4">方便簡單</label></div>
+              <div class="form-check"><input class="form-check-input" type="checkbox" name="reasons" id="reason-5" value="自由無壓力"><label class="form-check-label" for="reason-5">自由無壓力</label></div>
+            </div>
+
             <div class="step-navigation">
               <button type="button" class="btn btn-secondary prev-step">上一頁</button>
-              <button type="button" class="btn btn-primary next-step">下一頁</button>
+              <button type="button" class="btn btn-primary next-step">下一頁 (顧問服務)</button>
             </div>
           </div>
-
+          
           <div class="form-step" id="step-4">
             <legend class="h5 border-bottom pb-2 mb-3">步驟 4/5: 服務與機會</legend>
             <div class="mb-4 p-3 bg-light rounded">
-              <label class="form-label fw-bold">如果我來擔任您的購物顧問，幫助您省時、省錢並找到優質商品，您願意嗎？</label>
+              <label class="form-label fw-bold">D. 如果我來擔任您的購物顧問，幫助您省時、省錢並找到優質商品，您願意嗎？</label>
               <div class="form-check"><input class="form-check-input" type="radio" name="consultant" id="consultant-yes" value="願意"><label class="form-check-label" for="consultant-yes">沒問題，有人服務真好</label></div>
               <div class="form-check"><input class="form-check-input" type="radio" name="consultant" id="consultant-no" value="不願意"><label class="form-check-label" for="consultant-no">沒關係，我自己買就好</label></div>
             </div>
+
+            <div class="mb-3 p-3 bg-light rounded">
+              <label class="form-label fw-bold">E. 若有機會透過網路消費的模式，來創業或兼職斜槓、增加收入，您的想法是？</label>
+              <div class="form-check"><input class="form-check-input" type="radio" name="opportunity" id="opp-yes" value="有興趣了解"><label class="form-check-label" for="opp-yes">有興趣了解</label></div>
+              <div class="form-check"><input class="form-check-input" type="radio" name="opportunity" id="opp-no" value="暫時不需要"><label class="form-check-label" for="opp-no">暫時不需要</label></div>
+            </div>
+
             <div class="step-navigation">
               <button type="button" class="btn btn-secondary prev-step">上一頁</button>
               <button type="button" class="btn btn-primary next-step">下一頁 (最後一步)</button>
@@ -341,11 +532,11 @@
           <div class="form-step" id="step-5">
             <legend class="h5 border-bottom pb-2 mb-3">步驟 5/5: 您的黃金問題</legend>
             <div class="mb-3">
-              <label for="top3Needs" class="form-label">最後，在您勾選的所有項目中，最希望「優先」收到特價通知的三項商品是？</label>
+              <label for="top3Needs" class="form-label">感謝您的填寫！最後，在您勾選的所有項目中，最希望「優先」收到特價通知的三項商品是？</label>
               <input type="text" class="form-control" id="top3Needs" name="top3Needs" placeholder="例如：益生菌, 衛生紙, 氣墊粉餅">
             </div>
 
-            <div id="status-message" class="mt-3"></div>
+            <div id="status-message" class="mt-3" role="status" aria-live="polite"></div>
 
             <div class="step-navigation">
               <button type="button" class="btn btn-secondary prev-step">上一頁</button>
@@ -358,22 +549,26 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
     <script>
       var currentStep = 1;
       var totalSteps = 5;
       var AUTO_SAVE_KEY = 'karen_form_draft_v2';
-
+      
       $(document).ready(function() {
+        
         loadProgress();
 
         $(".next-step").click(function() {
-          if (validateStep(currentStep) && currentStep < totalSteps) {
-            $("#step-" + currentStep).removeClass("active");
-            currentStep++;
-            $("#step-" + currentStep).addClass("active");
-            updateProgressBar();
-            $('html, body').scrollTop(0);
-            saveProgress();
+          if (validateStep(currentStep)) {
+            if (currentStep < totalSteps) {
+              $("#step-" + currentStep).removeClass("active");
+              currentStep++;
+              $("#step-" + currentStep).addClass("active");
+              updateProgressBar();
+              scrollToTop();
+              saveProgress();
+            }
           }
         });
 
@@ -383,38 +578,60 @@
             currentStep--;
             $("#step-" + currentStep).addClass("active");
             updateProgressBar();
-            $('html, body').scrollTop(0);
+            scrollToTop();
             saveProgress();
           }
         });
-
+        
         function updateProgressBar() {
           var percentage = (currentStep / totalSteps) * 100;
           $("#progress-bar").css("width", percentage + "%");
         }
+        function scrollToTop() {
+          $('html, body').scrollTop(0);
+        }
+        function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
 
         function validateStep(step) {
           $("#step-" + step + " .field-error").removeClass('field-error');
           $("#step-" + step + " .error-text").hide();
 
           if (step === 1) {
-            var email = $("#email").val().trim();
-            var name = $("#name").val().trim();
-            var isValid = true;
-            if (!name) { $("#name").addClass('field-error'); $("#name-error").show(); isValid = false; }
-            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { $("#email").addClass('field-error'); $("#email-error").show(); isValid = false; }
-            return isValid;
+            var email = ($("#email").val() || "").trim();
+            var name = ($("#name").val() || "").trim();
+            if (!name) {
+              $("#name").addClass('field-error');
+              $("#name-error").show();
+              $("#name").focus();
+              return false;
+            }
+            if (!email || !isValidEmail(email)) {
+              $("#email").addClass('field-error');
+              $("#email-error").show();
+              $("#email").focus();
+              return false;
+            }
           }
+          $("#status-message").html('');
           return true;
         }
 
+        $('#customer-form input, #customer-form select, #customer-form textarea').on('input change', function() {
+          $(this).removeClass('field-error');
+          $(this).closest('.mb-3').find('.error-text').hide();
+        });
+
         window.toggleSection = function(checkbox) {
           var targetId = $(checkbox).data('target');
-          if (checkbox.checked) { $(targetId).slideDown(); } else { $(targetId).slideUp(); }
+          if (checkbox.checked) {
+            $(targetId).slideDown();
+          } else {
+            $(targetId).slideUp();
+          }
         }
 
         // ==========================================
-        // 核心修改：改用 fetch 呼叫 Vercel Serverless API
+        // 改用 fetch 呼叫 Vercel Serverless API
         // ==========================================
         $("#customer-form").on("submit", function(e) {
           e.preventDefault(); 
@@ -423,21 +640,23 @@
           $("#submit-button").prop('disabled', true).text('提交中...');
           $("#status-message").html('<div class="alert alert-info">資料傳送中，請稍候...</div>');
 
+          // 使用防呆寫法，確保即使有些欄位沒填也不會引發 .trim() 錯誤
           var formData = {
-            email: $("#email").val().trim(),
-            name: $("#name").val().trim(),
-            lineName_placeholder: $("#lineName_placeholder").val().trim(),
-            birthYear: $("#birthYear").val().trim(), 
-            birthMonth: $("#birthMonth").val(), 
-            top3Needs: $("#top3Needs").val().trim(),
+            email: ($("#email").val() || "").trim(),
+            name: ($("#name").val() || "").trim(),
+            lineName_placeholder: ($("#lineName_placeholder").val() || "").trim(),
+            birthYear: ($("#birthYear").val() || "").trim(), 
+            birthMonth: $("#birthMonth").val() || "", 
+            top3Needs: ($("#top3Needs").val() || "").trim(),
             mainCategories: [],
             allInterests: [],
+            trend: $('input[name="trend"]:checked').val() || "",
             habit: $('input[name="habit"]:checked').val() || "", 
-            websites: $("#websites").val().trim() || "", 
+            websites: ($("#websites").val() || "").trim(), 
             reasons: [], 
             opportunity: $('input[name="opportunity"]:checked').val() || "",
             consultant: $('input[name="consultant"]:checked').val() || "",
-            brandPref: $("#brandPref").val().trim() || "",
+            brandPref: ($("#brandPref").val() || "").trim(),
             repurchaseFrequency: $("#repurchaseFrequency").val() || "",
             consentDiscount: $('input[name="consentDiscount"]:checked').val() || ""
           };
@@ -455,24 +674,56 @@
           .then(response => response.json())
           .then(data => {
             if(data.success) {
-              clearSavedProgress();
-              $("#status-message").html('<div class="alert alert-success">感謝您的回覆！我們已收到，稍後會與您聯繫。<div class="mt-2"><a class="btn btn-sm btn-primary" href="https://line.me/R/ti/g/uE53tGJEFZ" target="_blank">前往 LINE 群組</a></div></div>');
-              $("#submit-button").prop('disabled', false).text('完成並提交');
+              onSuccess(data.message);
             } else {
               throw new Error(data.message || '伺服器發生錯誤');
             }
           })
           .catch(err => {
-            console.error("提交錯誤:", err);
-            $("#status-message").html('<div class="alert alert-danger">' + err.message + '</div>');
-            $("#submit-button").prop('disabled', false).text('重新提交');
+            onFailure(err);
           });
         });
 
-        // LocalStorage 相關函數
-        function saveProgress() {
+        var saveTimer = null;
+        $('#customer-form').on('input change', 'input, select, textarea', function() {
+          if (saveTimer) clearTimeout(saveTimer);
+          saveTimer = setTimeout(function() { saveProgress(); }, 600);
+        });
+
+      }); 
+
+      function loadProgress() {
+        try {
+          var raw = localStorage.getItem(AUTO_SAVE_KEY);
+          if (!raw) return;
+          var obj = JSON.parse(raw);
+          for (var name in obj) {
+            var val = obj[name];
+            var els = $('[name="' + name + '"]');
+            if (!els.length) continue;
+            if (els.attr('type') === 'checkbox' || els.attr('type') === 'radio') {
+              if (Array.isArray(val)) {
+                els.each(function() {
+                  if (val.indexOf($(this).val()) !== -1) $(this).prop('checked', true);
+                });
+              } else {
+                els.filter('[value="' + val + '"]').prop('checked', true);
+              }
+            } else {
+              els.val(val);
+            }
+          }
+          // 重新載入時確保勾選區塊顯示出來
+          $('.main-category:checked').each(function(){ window.toggleSection(this); });
+        } catch (e) {
+          console.log("loadProgress error:", e);
+        }
+      }
+
+      function saveProgress() {
+        try {
           var data = {};
-          $('#customer-form').find('input, select').each(function() {
+          $('#customer-form').find('input, textarea, select').each(function() {
             var $el = $(this);
             var name = $el.attr('name');
             if (!name) return;
@@ -486,28 +737,28 @@
             }
           });
           localStorage.setItem(AUTO_SAVE_KEY, JSON.stringify(data));
+        } catch (e) {
+          console.log("saveProgress error:", e);
         }
+      }
 
-        function loadProgress() {
-          try {
-            var raw = localStorage.getItem(AUTO_SAVE_KEY);
-            if (!raw) return;
-            var obj = JSON.parse(raw);
-            for (var name in obj) {
-              var val = obj[name];
-              var els = $('[name="' + name + '"]');
-              if (els.attr('type') === 'checkbox' || els.attr('type') === 'radio') {
-                if (Array.isArray(val)) els.each(function() { if (val.indexOf($(this).val()) !== -1) $(this).prop('checked', true); });
-                else els.filter('[value="' + val + '"]').prop('checked', true);
-              } else els.val(val);
-            }
-            // 觸發 toggleSection
-            $('.main-category:checked').each(function(){ window.toggleSection(this); });
-          } catch (e) {}
-        }
+      function clearSavedProgress() {
+        try { localStorage.removeItem(AUTO_SAVE_KEY); } catch(e) {}
+      }
 
-        function clearSavedProgress() { localStorage.removeItem(AUTO_SAVE_KEY); }
-      });
+      function onSuccess(message) {
+        clearSavedProgress();
+        var html = '<div class="alert alert-success">感謝您的回覆！我們已收到，稍後會與您聯繫。<div class="mt-2"><a class="btn btn-sm btn-primary" href="https://line.me/R/ti/g/uE53tGJEFZ" target="_blank" rel="noopener">前往 LINE 群組</a> <a class="btn btn-sm btn-outline-secondary" href="#">回到頁面</a></div></div>';
+        $("#status-message").html(html);
+        $("#submit-button").prop('disabled', false).text('完成並提交');
+      }
+
+      function onFailure(error) {
+        var msg = (error && error.message) ? error.message : "伺服器發生錯誤，請稍後再試。";
+        $("#status-message").html('<div class="alert alert-danger">' + msg + '</div>');
+        $("#submit-button").prop('disabled', false).text('重新提交');
+      }
     </script>
+    
   </body>
 </html>
